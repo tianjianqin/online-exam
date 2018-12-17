@@ -27,15 +27,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<label><span style="color:red">*</span>昵称：</label>
         <input type="text" placeholder="用户昵称" name="userName" id="userName" value="${user.userName }"/>
     </p>
-    <p class="short-input ue-clear">
+    <p class="short-input ue-clear grade">
     	<label><span style="color:red">*</span>年级：</label>
-        <input type="text" placeholder="请输入年级" name="grade" id="grade" value="${user.grade }"/>
+        <input type="text" placeholder="请输入年级" name="grade" id="grade" value="${user.grade}"/>
     </p>
-    <div class="short-input select ue-clear">
+    <%--<div class="long-input select ue-clear">--%>
+        <%--<label><span style="color:red">*</span>年级：</label>--%>
+        <%--<c:forEach items="${grade}" var="cs">--%>
+            <%--<input name="grade" type="radio" value="${cs.gradeId}"/>${cs.gradeName}--%>
+        <%--</c:forEach>--%>
+    <%--</div>--%>
+    <div class="short-input select">
     	<label><span style="color:red">*</span>账号类型：</label>
-    	<input name="userType" type="radio" value="0" checked="checked"/>学生
+    	<input name="userType" type="radio" value="0"/>学生
     	<input name="userType" type="radio" value="1"/>老师
-    	<input name="userType" type="radio" value="0"/>管理员
+    	<input name="userType" type="radio" value="2"/>管理员
     </div>
     <p class="short-input ue-clear">
     	<label><span style="color:red">*</span>邮箱：</label>
@@ -63,11 +69,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${ctx}/js/jquery.js"></script>
 <script type="text/javascript" src="${ctx}/js/common.js"></script>
 <script type="text/javascript" src="${ctx}/js/WdatePicker.js"></script>
+<script type="text/javascript" src="${ctx}/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/jquery.searchableSelect.js"></script>
 <script type="text/javascript">
+
+    $(function(){
+        $("#grade").searchableSelect();
+    });
+
 $(".select-title").on("click",function(){
 	$(".select-list").toggle();
 	return false;
 });
+$("input:radio[value='${user.userType}']").attr('checked','true');
+
+<%--$("input:radio[value='${cs.gradeId}']").attr('checked','true');--%>
+
 $(".select-list").on("click","li",function(){
 	var txt = $(this).text();
 	$(".select-title").find("span").text(txt);
